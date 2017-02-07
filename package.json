@@ -1,0 +1,21 @@
+{
+  "name": "three-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babylonjs": "^2.5.0",
+    "html-webpack-plugin": "^2.28.0",
+    "ts-loader": "^2.0.0",
+    "typescript": "^2.1.5",
+    "webpack": "^2.2.1"
+  },
+  "dependencies": {
+    "three": "^0.84.0"
+  }
+}
