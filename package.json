@@ -15,6 +15,7 @@
   "devDependencies": {
     "babylonjs": "^2.5.0",
     "html-webpack-plugin": "^2.28.0",
+    "json-loader": "^0.5.4",
     "rimraf": "^2.6.1",
     "ts-loader": "^2.0.0",
     "typescript": "^2.1.5",
