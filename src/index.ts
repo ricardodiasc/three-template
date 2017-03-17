@@ -7,8 +7,8 @@ import * as  monkey from './assets/models/monkey.json';
 
 class Main{
     scene:Scene = new Scene();
-    camera:PerspectiveCamera = new PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-    renderer : WebGLRenderer = new WebGLRenderer();
+    camera:PerspectiveCamera = new PerspectiveCamera(35, window.innerWidth/window.innerHeight, 0.1, 1000);
+    renderer : WebGLRenderer = new WebGLRenderer({canvas:document.getElementById("myCanvas"), antialias:true});
     geometry : BoxGeometry = new BoxGeometry(1,1,1);
     
     material : MeshBasicMaterial = new MeshBasicMaterial({ color : 0x00f900 , wireframe: true});
@@ -21,6 +21,7 @@ class Main{
         this.configurePointLight();
 
         this.scene.add(this.pointLight);
+        this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         this.scene.add(new AmbientLight(new Color(0.2,0.2,0.2).getHex()));
         this.configureCamera();
@@ -29,7 +30,7 @@ class Main{
        // this.scene.add(this.cube);
         //console.log(monkey);
         this.loadModel();
-        document.body.appendChild(this.renderer.domElement);
+        //document.body.appendChild(this.renderer.domElement);
     }
 
     loadModel(){
