@@ -9,11 +9,11 @@ class Main{
     scene:Scene = new Scene();
     camera:PerspectiveCamera = new PerspectiveCamera(35, window.innerWidth/window.innerHeight, 0.1, 1000);
     renderer : WebGLRenderer = new WebGLRenderer({canvas:document.getElementById("myCanvas"), antialias:true});
-    geometry : BoxGeometry = new BoxGeometry(1,1,1);
     
     material : MeshBasicMaterial = new MeshBasicMaterial({ color : 0x00f900 , wireframe: true});
     materialPhong : MeshPhongMaterial = new MeshPhongMaterial({ color : 0x0000ff });
-    cube : Mesh = new Mesh(this.geometry, this.materialPhong);
+    
+    monkeyMesh:Mesh;
 
     pointLight : PointLight;
     
@@ -26,20 +26,19 @@ class Main{
         this.scene.add(new AmbientLight(new Color(0.2,0.2,0.2).getHex()));
         this.configureCamera();
 
-        //Leaving the cube out for a moment
-       // this.scene.add(this.cube);
-        //console.log(monkey);
         this.loadModel();
-        //document.body.appendChild(this.renderer.domElement);
     }
 
     loadModel(){
-        var modelLoader = new JSONLoader();
-        console.log(monkey);
-        var model = modelLoader.parse(monkey);
-        var mesh = new Mesh(model.geometry, this.materialPhong);
-        mesh.position.x = 0; mesh.position.y=0;mesh.position.z = 0;
-        this.scene.add(mesh);
+        let modelLoader = new JSONLoader();
+        let model = modelLoader.parse(monkey);
+        this.monkeyMesh = new Mesh(model.geometry, this.materialPhong);
+        
+        this.monkeyMesh.position.x = 0;
+        this.monkeyMesh.position.y= 0;
+        this.monkeyMesh.position.z = 0;
+        
+        this.scene.add(this.monkeyMesh);
     }
 
     configurePointLight(){
@@ -57,8 +56,7 @@ class Main{
     render(){
         requestAnimationFrame(()=>this.render());
 
-        //this.cube.rotation.x += 0.01;
-        //this.cube.rotation.y += 0.01;
+        this.monkeyMesh.rotation.y += 0.01;
         this.renderer.render(this.scene, this.camera); 
 
     }

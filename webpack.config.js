@@ -12,6 +12,7 @@ var HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 
 module.exports = {
     entry : "./src/index.ts",
+    mode : "development",
     output : {
         filename : "bundle.js",
         path: path.resolve(__dirname, 'dist')
@@ -23,7 +24,7 @@ module.exports = {
     module : {
         rules: [{
             test: /\.tsx?$/,
-            loader: 'ts-loader'
+            use: 'ts-loader'
         }]
     },
     plugins : [HtmlWebpackPluginConfig]
