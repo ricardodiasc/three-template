@@ -74,7 +74,7 @@ class Main{
 
         //While not loaded
         if(this.monkeyMesh) {
-            this.monkeyMesh.rotation.y += 0.01;
+            this.monkeyMesh.rotation.y -= 0.01;
         }
         this.renderer.render(this.scene, this.camera); 
 
