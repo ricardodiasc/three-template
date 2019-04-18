@@ -1,5 +1,6 @@
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var CopyPlugin = require('copy-webpack-plugin');
 
 
 var HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
@@ -27,7 +28,12 @@ module.exports = {
             use: 'ts-loader'
         }]
     },
-    plugins : [HtmlWebpackPluginConfig]
+    plugins : [
+        HtmlWebpackPluginConfig,
+        new CopyPlugin([{
+            from:"public", to:"."}]
+        )
+    ]
 
 
 

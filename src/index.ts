@@ -1,14 +1,15 @@
 import {Scene, PerspectiveCamera, WebGLRenderer,
-         BoxGeometry, Mesh, MeshBasicMaterial,
+         Mesh, MeshBasicMaterial,
           MeshPhongMaterial, AmbientLight, PointLight,
-           Color, JSONLoader, SkinnedMesh,ObjectLoader } from 'three';
+           Color, JSONLoader } from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import * as  monkey from './assets/models/monkey.json';
 
 
 class Main{
     scene:Scene = new Scene();
     camera:PerspectiveCamera = new PerspectiveCamera(35, window.innerWidth/window.innerHeight, 0.1, 1000);
-    renderer : WebGLRenderer = new WebGLRenderer({canvas:document.getElementById("myCanvas"), antialias:true});
+    renderer : WebGLRenderer = new WebGLRenderer({canvas:<HTMLCanvasElement>document.getElementById("myCanvas"), antialias:true});
     
     material : MeshBasicMaterial = new MeshBasicMaterial({ color : 0x00f900 , wireframe: true});
     materialPhong : MeshPhongMaterial = new MeshPhongMaterial({ color : 0x0000ff });
@@ -26,7 +27,8 @@ class Main{
         this.scene.add(new AmbientLight(new Color(0.2,0.2,0.2).getHex()));
         this.configureCamera();
 
-        this.loadModel();
+        //this.loadModel();
+        this.loadModelGLTF();
     }
 
     loadModel(){
@@ -39,6 +41,20 @@ class Main{
         this.monkeyMesh.position.z = 0;
         
         this.scene.add(this.monkeyMesh);
+    }
+
+    loadModelGLTF() {
+        let gltfLoader = new GLTFLoader();
+        gltfLoader.load('assets/webmonkey.glb',
+            (gltf)=>{
+                this.monkeyMesh = <Mesh>gltf.scene.children[0];
+                this.monkeyMesh.position.x = 0;
+                this.monkeyMesh.position.y= 0;
+                this.monkeyMesh.position.z = 0;
+                
+                this.scene.add(this.monkeyMesh);
+            });
+        
     }
 
     configurePointLight(){
@@ -56,7 +72,10 @@ class Main{
     render(){
         requestAnimationFrame(()=>this.render());
 
-        this.monkeyMesh.rotation.y += 0.01;
+        //While not loaded
+        if(this.monkeyMesh) {
+            this.monkeyMesh.rotation.y += 0.01;
+        }
         this.renderer.render(this.scene, this.camera); 
 
     }
