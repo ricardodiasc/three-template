@@ -8,7 +8,7 @@
     "start": "webpack-dev-server --port 3000 --inline --hot --content-base dist/",
     "build": "npm run clean && webpack -p",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "npm run build && git subtree push --prefix dist origin gh-pages"
+    "deploy": "npm run build && git subtree split --prefix dist -b gh-pages && git subtree push --prefix dist origin gh-pages && git branch -D gh-pages"
   },
   "author": "Ricardo Dias Cavalcante",
   "license": "ISC",
