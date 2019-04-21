@@ -22,6 +22,8 @@ class Main{
 
         this.scene.add(this.pointLight);
         this.renderer.setPixelRatio(window.devicePixelRatio);
+        this.renderer.gammaOutput = true;
+        this.renderer.gammaFactor = 2.2;
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         this.scene.add(new AmbientLight(new Color(0.2,0.2,0.2).getHex()));
         this.configureCamera();
