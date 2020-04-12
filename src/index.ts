@@ -2,11 +2,13 @@ import {Scene, PerspectiveCamera, WebGLRenderer,
          Mesh, MeshBasicMaterial,
           MeshPhongMaterial, AmbientLight, PointLight,
            Color } from 'three';
+import { Stats } from 'three-stats' ;
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 
 class Main{
     scene:Scene = new Scene();
+    stats = new Stats();
     camera:PerspectiveCamera = new PerspectiveCamera(35, window.innerWidth/window.innerHeight, 0.1, 1000);
     renderer : WebGLRenderer = new WebGLRenderer({canvas:<HTMLCanvasElement>document.getElementById("myCanvas"), antialias:true});
     
@@ -19,7 +21,7 @@ class Main{
     
     constructor(){
         this.configurePointLight();
-
+        
         this.scene.add(this.pointLight);
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.gammaOutput = true;
@@ -29,6 +31,7 @@ class Main{
         this.configureCamera();
 
         this.loadModelGLTF();
+        document.body.appendChild(this.stats.dom);
     }
 
     loadModelGLTF() {
@@ -58,13 +61,15 @@ class Main{
     }
 
     render(){
-        requestAnimationFrame(()=>this.render());
-
+        this.stats.begin();
+        
         //While not loaded
         if(this.monkeyMesh) {
             this.monkeyMesh.rotation.y -= 0.01;
         }
         this.renderer.render(this.scene, this.camera); 
+        this.stats.end();
+        requestAnimationFrame(()=>this.render());
 
     }
 
