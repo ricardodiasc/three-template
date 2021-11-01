@@ -14,6 +14,14 @@ var HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 module.exports = {
     entry : "./src/index.ts",
     mode : "development",
+    devServer: {
+      static: {
+        directory: path.join(__dirname, 'dist')
+      },
+      compress: true,
+      port: 9000
+
+    },
     output : {
         filename : "bundle.js",
         path: path.resolve(__dirname, 'dist')
@@ -30,9 +38,11 @@ module.exports = {
     },
     plugins : [
         HtmlWebpackPluginConfig,
-        new CopyPlugin([{
-            from:"public", to:"."}]
-        )
+        new CopyPlugin({
+          patterns: [
+            { from: "public", to: "." }
+          ]
+        })
     ]
 
 
